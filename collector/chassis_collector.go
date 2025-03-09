@@ -165,10 +165,16 @@ func (c *ChassisCollector) Collect(ch chan<- prometheus.Metric) {
 
 				// process fans
 				chassisFans := chassisThermal.Fans
-				wg2 := &sync.WaitGroup{}
-				wg2.Add(len(chassisFans))
-				for _, chassisFan := range chassisFans {
-					go parseChassisFan(ch, chassisID, chassisFan, wg2)
+				if err != nil {
+					chassisLogger.Error("error getting fans data from chassis", slog.String("operation", "chassis.Fans()"), slog.Any("error", err))
+				} else if chassisFans == nil {
+					chassisLogger.Info("no fans data found", slog.String("operation", "chassis.Fans()"))
+				} else {
+					wg2 := &sync.WaitGroup{}
+					wg2.Add(len(chassisFans))
+					for _, chassisFan := range chassisFans {
+						go parseChassisFan(ch, chassisID, chassisFan, wg2)
+					}
 				}
 			}
 
@@ -278,7 +284,7 @@ func parseChassisTemperature(ch chan<- prometheus.Metric, chassisID string, chas
 	ch <- prometheus.MustNewConstMetric(chassisMetrics["chassis_temperature_celsius"].desc, prometheus.GaugeValue, float64(chassisTemperatureReadingCelsius), chassisTemperatureLabelvalues...)
 }
 
-func parseChassisFan(ch chan<- prometheus.Metric, chassisID string, chassisFan redfish.Fan, wg *sync.WaitGroup) {
+func parseChassisFan(ch chan<- prometheus.Metric, chassisID string, chassisFan redfish.ThermalFan, wg *sync.WaitGroup) {
 	defer wg.Done()
 	chassisFanID := chassisFan.MemberID
 	chassisFanName := chassisFan.Name

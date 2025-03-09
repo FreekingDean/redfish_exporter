@@ -1,0 +1,9 @@
+hosts:
+  192.168.2.63:
+    username: root
+    password: calvin
+  default:
+    username: root
+    password: calvin
+# loglevel can be one of "debug", "info", "warn", "error"
+loglevel: debug
