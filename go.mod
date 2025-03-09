@@ -1,12 +1,15 @@
-module github.com/flxpeters/redfish_exporter
+module github.com/FreekingDean/redfish_exporter
 
 go 1.21
 
 require (
+	github.com/flxpeters/redfish_exporter v0.2.0
 	github.com/go-kit/log v0.2.1
 	github.com/golangci/golangci-lint v1.58.1
 	github.com/prometheus/client_golang v1.19.1
 	github.com/prometheus/exporter-toolkit v0.7.2
+	github.com/spf13/cobra v1.7.0
+	github.com/spf13/viper v1.12.0
 	github.com/stmcginnis/gofish v0.20.0
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -151,10 +154,8 @@ require (
 	github.com/sourcegraph/go-diff v0.7.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
-	github.com/spf13/cobra v1.7.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.12.0 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
 	github.com/stbenjam/no-sprintf-host-port v0.1.1 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect

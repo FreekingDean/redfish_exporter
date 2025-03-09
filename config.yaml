@@ -1,9 +1,30 @@
+# This is the configuration file for the exporter.
 hosts:
+  # The key is the hostname or IP address of the device.
+  # This will be the `target` in the Prometheus config.
   192.168.2.63:
     username: root
     password: calvin
-  default:
-    username: root
-    password: calvin
-# loglevel can be one of "debug", "info", "warn", "error"
-loglevel: debug
+    # Specific Metric configuration per host.
+    # This overrides the global config.
+    metrics:
+      # Enable all metrics by default
+      enableAll: true
+      metrics:
+        # Example of turning off fans for a specific host
+        fans.*:
+          enabled: false
+
+
+# logLevel can be one of "debug", "info", "warn", "error"
+logLevel: debug
+
+metrics:
+  enableAll: false
+  metrics:
+    power.*:
+      enabled: true
+
+web:
+  address: 0.0.0.0
+  port: 9100
