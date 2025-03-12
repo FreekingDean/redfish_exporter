@@ -1,0 +1,26 @@
+name: helm-release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+    packages: write # to be able to push container images
+    contents: write # to be able to publish a GitHub release
+
+jobs:
+  semantic-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
