@@ -1,7 +1,7 @@
 # redfish_exporter
 
 [![test-and-lint](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml)
-![GitHub Tag](https://img.shields.io/github/v/tag/:user/:repo)
+![GitHub Tag](https://img.shields.io/github/v/tag/FreekingDean/redfish_exporter)
 
 
 A Prometheus exporter to get metrics from Redfish based hardware servers.
