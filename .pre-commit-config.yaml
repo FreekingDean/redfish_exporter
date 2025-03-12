@@ -17,8 +17,8 @@ repos:
     - id: go-fmt
       name: go fmt
       language: golang
-      entry: go fmt ./...
-      pass_filenames: false
+      entry: go fmt
+      types: [go]
     - id: go-mod-tidy
       name: go mod tidy
       language: golang
@@ -27,5 +27,5 @@ repos:
     - id: go-vet
       name: go vet
       language: golang
-      entry: go vet ./...
-      pass_filenames: false
+      entry: go vet
+      types: [go]
