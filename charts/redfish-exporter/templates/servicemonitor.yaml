@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "redfish_exporter.fullname" . }}
+  labels:
+    {{- include "redfish_exporter.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - interval: {{ .Values.scrapeInterval }}
+      path: /metrics
+      port: metrics
+      scheme: http
+      scrapeTimeout: 60s
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{ include "redfish_exporter.selectorLabels" . | nindent 6 }}

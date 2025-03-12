@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/FreekingDean/redfish_exporter/internal/config"
@@ -12,6 +13,11 @@ import (
 )
 
 func New(mux *http.ServeMux) *http.Server {
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "OK")
+	})
+
 	return &http.Server{
 		Handler: mux,
 	}

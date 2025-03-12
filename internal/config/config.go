@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -51,6 +52,7 @@ func New(opts []Option) (Config, error) {
 	v.SetConfigFile("./config.yaml")
 
 	v.SetEnvPrefix("REDFISH_EXPORTER")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	for _, opt := range opts {
 		opt(v)
