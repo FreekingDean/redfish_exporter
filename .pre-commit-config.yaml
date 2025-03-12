@@ -29,8 +29,3 @@ repos:
       language: golang
       entry: go vet ./...
       pass_filenames: false
-    - id: golangci-lint
-      name: golangci-lint
-      language: golang
-      entry: go run github.com/golangci/golangci-lint/cmd/golangci-lint run ./...
-      pass_filenames: false

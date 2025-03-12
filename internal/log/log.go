@@ -29,7 +29,7 @@ func (l *Logger) Zap() *zap.Logger {
 func (l *Logger) Slog() *slog.Logger {
 	level := slog.LevelInfo
 	for s, z := range slogzap.LogLevels {
-		if z == l.Level() {
+		if z == l.Zap().Level() {
 			level = s
 			break
 		}
