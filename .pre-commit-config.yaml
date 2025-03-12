@@ -5,7 +5,7 @@ repos:
   rev: v5.0.0
   hooks:
     - id: check-yaml
-      exclude: ^charts/redfish_exporter/templates/
+      exclude: ^charts/redfish-exporter/templates/
     - id: check-json
     - id: trailing-whitespace
     - id: end-of-file-fixer
