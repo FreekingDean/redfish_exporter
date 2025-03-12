@@ -16,7 +16,7 @@ builds:
 dockers:
   - id: ghcr.io
     image_templates:
-      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Major }}"
-      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Tag }}"
-      - "ghcr.io/FreekingDean/{{ .ProjectName }}:latest"
+      - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Major }}"
+      - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Tag }}"
+      - "ghcr.io/freekingdean/{{ .ProjectName }}:latest"
