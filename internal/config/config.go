@@ -39,7 +39,7 @@ type Metric struct {
 	Labels  map[string]string `mapstructure:"labels"`
 }
 
-func New(opts ...Option) (Config, error) {
+func New(opts []Option) (Config, error) {
 	config := Config{}
 
 	v := viper.New()
