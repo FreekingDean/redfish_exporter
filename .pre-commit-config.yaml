@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v3.2.0
+  rev: v5.0.0
   hooks:
     - id: trailing-whitespace
     - id: end-of-file-fixer
@@ -28,9 +28,4 @@ repos:
       name: go vet
       language: golang
       entry: go vet ./...
-      pass_filenames: false
-    - id: golangci-lint
-      name: golangci-lint
-      language: golang
-      entry: go run github.com/golangci/golangci-lint/cmd/golangci-lint run ./...
       pass_filenames: false

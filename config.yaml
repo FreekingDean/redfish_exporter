@@ -1,9 +1,25 @@
-hosts:
-  192.168.2.63:
-    username: root
-    password: calvin
-  default:
-    username: root
-    password: calvin
-# loglevel can be one of "debug", "info", "warn", "error"
-loglevel: debug
+# This is the configuration file for the exporter.
+host:
+  endpoint: localhost
+  username: admin
+  password: admin
+
+
+# logLevel can be one of "debug", "info", "warn", "error"
+logLevel: debug
+
+#metrics:
+#  enableAll: false
+#  metrics:
+#    power.*:
+#      enabled: true
+
+web:
+  address: 0.0.0.0
+  port: 9610
+  # The path to the prometheus-exporter web
+  # config file. For more information see the
+  # below example and the definition.
+  # https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md
+  #
+  # configFile: /etc/ibm-exporter/config.yaml

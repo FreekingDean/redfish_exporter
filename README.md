@@ -1,7 +1,7 @@
 # redfish_exporter
 
-[![test-and-lint](https://github.com/FlxPeters/redfish_exporter/actions/workflows/test-and-lint.yml/badge.svg)](https://github.com/FlxPeters/redfish_exporter/actions/workflows/test-and-lint.yml)
-[![goreleaser](https://github.com/FlxPeters/redfish_exporter/actions/workflows/build-goreleaser.yml/badge.svg)](https://github.com/FlxPeters/redfish_exporter/actions/workflows/build-goreleaser.yml)
+[![test-and-lint](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml)
+[![goreleaser](https://github.com/FreekingDean/redfish_exporter/actions/workflows/build-goreleaser.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/build-goreleaser.yml)
 
 
 A Prometheus exporter to get metrics from Redfish based hardware servers.

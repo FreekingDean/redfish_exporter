@@ -13,8 +13,7 @@
 
 build/
 dist
-.envrc
-redfish_exporter
+/redfish_exporter
 
 # Editor backup files
 *~
