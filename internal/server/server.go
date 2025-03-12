@@ -1,13 +1,45 @@
 package server
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/FreekingDean/redfish_exporter/internal/config"
+	"github.com/FreekingDean/redfish_exporter/internal/log"
+	"github.com/prometheus/exporter-toolkit/web"
+	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
-func Run(cfg config.Config) error {
-	_ = &http.Server{Addr: cfg.Web.ListenAddress()}
-	return nil
-	//return web.ListenAndServe(server, cfg.PrometheusConfig(), kitlogger)
+func New(mux *http.ServeMux) *http.Server {
+	return &http.Server{
+		Handler: mux,
+	}
+}
+
+func Run(server *http.Server, cfg config.Config, logger *log.Logger, lc fx.Lifecycle) {
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			addresses := []string{cfg.Web.ListenAddress()}
+
+			flagConfig := &web.FlagConfig{
+				WebListenAddresses: &addresses,
+				WebConfigFile:      &cfg.Web.ConfigFile,
+			}
+
+			go func() {
+				if err := web.ListenAndServe(server, flagConfig, logger.Slog()); err != nil {
+					if err != http.ErrServerClosed {
+						logger.Error("Failed to start server", zap.Error(err))
+					}
+				}
+			}()
+			return nil
+		},
+
+		OnStop: func(ctx context.Context) error {
+			logger.Info("Stopping application...")
+			return server.Shutdown(ctx)
+		},
+	})
 }

@@ -1,14 +1,20 @@
 project_name: redfish_exporter
 builds:
   - id: default
+    binary: redfish_exporter
     goos:
-    - linux
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
     env:
       - CGO_ENABLED=0
 dockers:
   - id: ghcr.io
     image_templates:
-      - "ghcr.io/flxpeters/{{ .ProjectName }}:{{ .Tag }}"
-      - "ghcr.io/flxpeters/{{ .ProjectName }}:latest"
-    extra_files:
-      - config.example.yml
+      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Major }}"
+      - "ghcr.io/FreekingDean/{{ .ProjectName }}:{{ .Tag }}"
+      - "ghcr.io/FreekingDean/{{ .ProjectName }}:latest"

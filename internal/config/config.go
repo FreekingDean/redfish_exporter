@@ -7,34 +7,26 @@ import (
 )
 
 type Config struct {
-	Hosts    map[string]Host `mapstructure:"hosts"`
-	Groups   map[string]Host `mapstructure:"groups"`
-	LogLevel string          `mapstructure:"logLevel"`
-	Metrics  Metrics         `mapstructure:"metrics"`
-	Web      Web             `mapstructure:"web"`
+	Host     Host    `mapstructure:"host"`
+	LogLevel string  `mapstructure:"logLevel"`
+	Metrics  Metrics `mapstructure:"metrics"`
+	Web      Web     `mapstructure:"web"`
 }
 
 type Web struct {
-	Address string `mapstructure:"address"`
-	Port    int    `mapstructure:"port"`
-	Auth    Auth   `mapstructure:"auth"`
+	Address    string `mapstructure:"address"`
+	Port       int    `mapstructure:"port"`
+	ConfigFile string `mapstructure:"configFile"`
 }
 
 func (w Web) ListenAddress() string {
 	return fmt.Sprintf("%s:%d", w.Address, w.Port)
 }
 
-type Auth struct {
-	Enabled  bool   `mapstructure:"enabled"`
-	Username string `mapstructure:"username"`
-	Password string `mapstructure:"password"`
-}
-
 type Host struct {
+	Endpoint string `mapstructure:"endpoint"`
 	Username string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
-
-	Metrics Metrics `mapstructure:"metrics"`
 }
 
 type Metrics struct {
@@ -47,14 +39,13 @@ type Metric struct {
 	Labels  map[string]string `mapstructure:"labels"`
 }
 
-func New(opts ...ConfigOption) (Config, error) {
+func New(opts ...Option) (Config, error) {
 	config := Config{}
 
 	v := viper.New()
 	v.SetDefault("logLevel", "info")
 	v.SetDefault("web.address", "")
-	v.SetDefault("web.port", 9100)
-	v.SetDefault("web.auth.enabled", false)
+	v.SetDefault("web.port", 9610)
 
 	v.SetConfigType("yaml")
 	v.SetConfigFile("./config.yaml")
@@ -70,7 +61,7 @@ func New(opts ...ConfigOption) (Config, error) {
 	}
 	v.AutomaticEnv()
 
-	err := viper.Unmarshal(&config)
+	err := v.Unmarshal(&config)
 
 	return config, err
 }
