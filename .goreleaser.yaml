@@ -1,4 +1,5 @@
 project_name: redfish_exporter
+version: 2
 builds:
   - id: default
     binary: redfish_exporter
