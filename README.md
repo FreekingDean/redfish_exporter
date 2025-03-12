@@ -1,10 +1,13 @@
 # redfish_exporter
 
 [![test-and-lint](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml)
-[![goreleaser](https://github.com/FreekingDean/redfish_exporter/actions/workflows/build-goreleaser.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/build-goreleaser.yml)
+![GitHub Tag](https://img.shields.io/github/v/tag/:user/:repo)
 
 
 A Prometheus exporter to get metrics from Redfish based hardware servers.
+
+This is HEAVILY based on the original [redfish_exporter](https://github.com/FlxPeters/redfish_exporter), which
+paved the way for what you see here.
 
 ## Configuration
 

@@ -1,0 +1,11 @@
+{{- if .Values.redfish_exporter_config.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "redfish_exporter.fullname" . }}
+  labels:
+    {{- include "redfish_exporter.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- toYaml .Values.redfish_exporter_config.config | nindent 4 }}
+{{- end }}
