@@ -39,7 +39,7 @@ func serve(configFile string) {
 
 		// Invoke Service
 		fx.Invoke(
-			func(c *redfish.Client) {},
+			redfish.Start,
 			prometheus.RegisterBasicCollectors,
 			chassiscollector.Register,
 			prometheus.RegisterHandler,

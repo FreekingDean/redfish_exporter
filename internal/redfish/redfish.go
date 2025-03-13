@@ -1,6 +1,7 @@
 package redfish
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	"github.com/stmcginnis/gofish"
 	"github.com/stmcginnis/gofish/common"
 	"github.com/stmcginnis/gofish/redfish"
+	"go.uber.org/fx"
 )
 
 const (
@@ -105,6 +107,15 @@ func New(cfg config.Config) (*Client, error) {
 	return &Client{
 		client: client,
 	}, nil
+}
+
+func Start(c *Client, lc fx.Lifecycle) {
+	lc.Append(fx.Hook{
+		OnStop: func(ctx context.Context) error {
+			c.client.Logout()
+			return nil
+		},
+	})
 }
 
 func (c *Client) Chassis() ([]*Chassis, error) {
