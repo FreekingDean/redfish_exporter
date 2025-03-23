@@ -47,7 +47,7 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           cr package charts/redfish-exporter
-          cr upload -o freekingdean -r redfish_exporter --mark-as-latest=false
+          cr upload -o freekingdean -r redfish_exporter --make-release-latest=false
           cr index -o freekingdean -r redfish_exporter
 
       - name: Run GoReleaser
