@@ -8,8 +8,8 @@ on:
 jobs:
   semantic-release:
     permissions:
-        packages: write
-        contents: write
+      packages: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
