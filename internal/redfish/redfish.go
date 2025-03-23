@@ -45,7 +45,8 @@ type (
 )
 
 type Client struct {
-	client *gofish.APIClient
+	clientConfig gofish.ClientConfig
+	client       *gofish.APIClient
 }
 
 func New(cfg config.Config) (*Client, error) {
@@ -99,18 +100,24 @@ func New(cfg config.Config) (*Client, error) {
 		Insecure:   true,
 		HTTPClient: &http.Client{Transport: transport},
 	}
-	client, err := gofish.Connect(config)
-	if err != nil {
-		return nil, err
-	}
 
 	return &Client{
-		client: client,
+		clientConfig: config,
 	}, nil
 }
 
 func Start(c *Client, lc fx.Lifecycle) {
 	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			client, err := gofish.Connect(c.clientConfig)
+			if err != nil {
+				return err
+			}
+
+			c.client = client
+
+			return nil
+		},
 		OnStop: func(ctx context.Context) error {
 			c.client.Logout()
 			return nil

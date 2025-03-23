@@ -18,6 +18,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Sed Tag
+        run: |
+          sed -i "s/<<TAG>>/${{ github.ref_name }}/g" charts/redfish_exporter/Chart.yaml
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - name: Set up Go
         uses: actions/setup-go@v5
 
@@ -27,6 +36,19 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Chartreleaser
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          install_only: true
+
+      - name: Run Chartreleaser
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          cr package charts/redfish_exporter
+          cr upload -o freekingdean -r redfish_exporter --mark-as-latest=false
+          cr index -o freekingdean -r redfish_exporter
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
