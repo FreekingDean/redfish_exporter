@@ -47,11 +47,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Sed Tag
-        run: |
-          sed -i "s/<<TAG>>/${{ github.ref_name }}/g" ./charts/redfish-exporter/Chart.yaml
-          sed -i "s/<<TAG>>/${{ github.ref_name }}/g" ./charts/redfish-exporter/values.yaml
-
       - name: Run Chartreleaser
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
