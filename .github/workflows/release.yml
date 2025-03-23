@@ -23,7 +23,7 @@ jobs:
 
       - name: Sed Tag
         run: |
-          sed -i "s/<<TAG>>/${{ github.ref_name }}/g" charts/redfish_exporter/Chart.yaml
+          sed -i "s/<<TAG>>/${{ github.ref_name }}/g" ./charts/redfish-exporter/Chart.yaml
 
       - name: Configure Git
         run: |
