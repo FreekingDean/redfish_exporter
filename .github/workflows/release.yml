@@ -5,12 +5,11 @@ on:
     tags:
       - 'v*.*.*'
 
-permissions:
-    packages: write # to be able to push container images
-    contents: write # to be able to publish a GitHub release
-
 jobs:
   semantic-release:
+    permissions:
+        packages: write
+        contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
