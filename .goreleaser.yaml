@@ -16,6 +16,7 @@ builds:
 dockers:
   - id: ghcr.io
     image_templates:
+      - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
       - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
       - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Major }}"
       - "ghcr.io/freekingdean/{{ .ProjectName }}:{{ .Tag }}"
