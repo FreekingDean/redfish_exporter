@@ -33,11 +33,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Chartreleaser
-        uses: helm/chart-releaser-action@v1.7.0
-        with:
-          install_only: true
-
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
@@ -47,10 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Chartreleaser
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        run: |
-          cr package charts/redfish-exporter
-          cr upload -o freekingdean -r redfish_exporter --make-release-latest=false
-          cr index -o freekingdean -r redfish_exporter
