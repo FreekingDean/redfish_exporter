@@ -14,7 +14,7 @@ paved the way for what you see here.
 An example configure given as an example:
 
 ```yaml
-hosts:
+host:
   10.36.48.24:
     username: admin
     password: pass
