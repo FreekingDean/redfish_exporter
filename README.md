@@ -15,16 +15,9 @@ An example configure given as an example:
 
 ```yaml
 host:
-  10.36.48.24:
-    username: admin
-    password: pass
-  default:
-    username: admin
-    password: pass
-groups:
-  group1:
-    username: group1_user
-    password: group1_pass
+  endpoint: http://foobar
+  username: admin
+  password: pass
 ```
 Note that the ```default``` entry is useful as it avoids an error
 condition that is discussed in [this issue][1].
