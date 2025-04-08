@@ -8,6 +8,7 @@ import (
 	"github.com/FreekingDean/redfish_exporter/internal/log"
 	"github.com/FreekingDean/redfish_exporter/internal/redfish"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/stmcginnis/gofish"
 	"go.uber.org/fx"
 )
 
@@ -27,13 +28,13 @@ type collectorFunc func(chan<- prometheus.Metric, *redfish.Chassis)
 
 type Collector struct {
 	logger         *log.Logger
-	redfish        *redfish.Client
+	redfish        *gofish.APIClient
 	metrics        map[string]*prometheus.Desc
 	scrapeStatus   *prometheus.GaugeVec
 	collectorFuncs []collectorFunc
 }
 
-func New(logger *log.Logger, client *redfish.Client) *Collector {
+func New(logger *log.Logger, client *gofish.APIClient) *Collector {
 	return &Collector{
 		logger:  logger,
 		redfish: client,
@@ -86,7 +87,7 @@ func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
 func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	c.logger.Debug("Collecting chassis metrics")
 
-	chassiss, err := c.redfish.Chassis()
+	chassiss, err := c.redfish.GetService().Chassis()
 	if err != nil {
 		c.logger.Error("Failed to get chassis", log.Error(err))
 		c.scrapeStatus.WithLabelValues("chassis").Set(float64(0))

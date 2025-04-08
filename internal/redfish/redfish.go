@@ -8,10 +8,12 @@ import (
 	"time"
 
 	"github.com/FreekingDean/redfish_exporter/internal/config"
+	"github.com/FreekingDean/redfish_exporter/internal/log"
 	"github.com/stmcginnis/gofish"
 	"github.com/stmcginnis/gofish/common"
 	"github.com/stmcginnis/gofish/redfish"
 	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
 const (
@@ -44,12 +46,7 @@ type (
 	State   = common.State
 )
 
-type Client struct {
-	clientConfig gofish.ClientConfig
-	client       *gofish.APIClient
-}
-
-func New(cfg config.Config) (*Client, error) {
+func New(cfg config.Config) *gofish.ClientConfig {
 	defaultTransport := http.DefaultTransport.(*http.Transport)
 	transport := &http.Transport{
 		Proxy:                 defaultTransport.Proxy,
@@ -101,30 +98,26 @@ func New(cfg config.Config) (*Client, error) {
 		HTTPClient: &http.Client{Transport: transport},
 	}
 
-	return &Client{
-		clientConfig: config,
-	}, nil
+	return &config
 }
 
-func Start(c *Client, lc fx.Lifecycle) {
+func NewClient(logger *log.Logger, clientConfig *gofish.ClientConfig) (*gofish.APIClient, error) {
+	logger.Debug("Connecting to redfish service", zap.String("endpoint", clientConfig.Endpoint))
+
+	client, err := gofish.Connect(*clientConfig)
+	if err != nil {
+		logger.Error("Failed to connect to redfish service", zap.String("endpoint", clientConfig.Endpoint), zap.Error(err))
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func Start(goFishClient *gofish.APIClient, lc fx.Lifecycle) {
 	lc.Append(fx.Hook{
-		OnStart: func(ctx context.Context) error {
-			client, err := gofish.Connect(c.clientConfig)
-			if err != nil {
-				return err
-			}
-
-			c.client = client
-
-			return nil
-		},
 		OnStop: func(ctx context.Context) error {
-			c.client.Logout()
+			goFishClient.Logout()
 			return nil
 		},
 	})
-}
-
-func (c *Client) Chassis() ([]*Chassis, error) {
-	return c.client.GetService().Chassis()
 }

@@ -1,4 +1,4 @@
-package main
+package cmds
 
 import (
 	"github.com/FreekingDean/redfish_exporter/internal/collectors/chassiscollector"
@@ -11,6 +11,18 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
 )
+
+func NewServeCmd() *cobra.Command {
+	var cfg string
+	cmd := &cobra.Command{
+		Use:   "serve",
+		Short: "Start the Redfish Exporter",
+		Run:   func(cmd *cobra.Command, args []string) { serve(cfg) },
+	}
+
+	cmd.PersistentFlags().StringVar(&cfg, "config", "./config.yaml", "config file [./config.yaml]")
+	return cmd
+}
 
 func serve(configFile string) {
 	configOptionProvider := func() []config.Option {
@@ -31,6 +43,7 @@ func serve(configFile string) {
 			configOptionProvider,
 			config.New,
 			redfish.New,
+			redfish.NewClient,
 			server.NewMux,
 			server.New,
 			prometheus.NewRegistry,
@@ -48,16 +61,4 @@ func serve(configFile string) {
 	)
 
 	app.Run()
-}
-
-func newServeCmd() *cobra.Command {
-	var cfg string
-	cmd := &cobra.Command{
-		Use:   "serve",
-		Short: "Start the Redfish Exporter",
-		Run:   func(cmd *cobra.Command, args []string) { serve(cfg) },
-	}
-
-	cmd.PersistentFlags().StringVar(&cfg, "config", "./config.yaml", "config file [./config.yaml]")
-	return cmd
 }

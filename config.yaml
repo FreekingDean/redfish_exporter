@@ -1,19 +1,15 @@
 # This is the configuration file for the exporter.
 host:
   endpoint: localhost
-  username: admin
+  username: root
   password: admin
-
-
 # logLevel can be one of "debug", "info", "warn", "error"
 logLevel: debug
-
 #metrics:
 #  enableAll: false
 #  metrics:
 #    power.*:
 #      enabled: true
-
 web:
   address: 0.0.0.0
   port: 9610
