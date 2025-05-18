@@ -46,7 +46,7 @@ type (
 	State   = common.State
 )
 
-func New(cfg config.Config) *gofish.ClientConfig {
+func NewClientConfig(cfg config.Config) *gofish.ClientConfig {
 	defaultTransport := http.DefaultTransport.(*http.Transport)
 	transport := &http.Transport{
 		Proxy:                 defaultTransport.Proxy,
@@ -101,7 +101,11 @@ func New(cfg config.Config) *gofish.ClientConfig {
 	return &config
 }
 
-func NewClient(logger *log.Logger, clientConfig *gofish.ClientConfig) (*gofish.APIClient, error) {
+type Client struct {
+	*gofish.APIClient
+}
+
+func NewClient(logger *log.Logger, clientConfig *gofish.ClientConfig) (*Client, error) {
 	logger.Debug("Connecting to redfish service", zap.String("endpoint", clientConfig.Endpoint))
 
 	client, err := gofish.Connect(*clientConfig)
@@ -110,13 +114,13 @@ func NewClient(logger *log.Logger, clientConfig *gofish.ClientConfig) (*gofish.A
 		return nil, err
 	}
 
-	return client, nil
+	return &Client{client}, nil
 }
 
-func Start(goFishClient *gofish.APIClient, lc fx.Lifecycle) {
+func Start(client *Client, lc fx.Lifecycle) {
 	lc.Append(fx.Hook{
 		OnStop: func(ctx context.Context) error {
-			goFishClient.Logout()
+			client.APIClient.Logout()
 			return nil
 		},
 	})

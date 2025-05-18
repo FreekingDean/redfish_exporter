@@ -42,7 +42,7 @@ func serve(configFile string) {
 			log.New,
 			configOptionProvider,
 			config.New,
-			redfish.New,
+			redfish.NewClientConfig,
 			redfish.NewClient,
 			server.NewMux,
 			server.New,

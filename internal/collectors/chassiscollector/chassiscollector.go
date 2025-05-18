@@ -8,7 +8,6 @@ import (
 	"github.com/FreekingDean/redfish_exporter/internal/log"
 	"github.com/FreekingDean/redfish_exporter/internal/redfish"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/stmcginnis/gofish"
 	"go.uber.org/fx"
 )
 
@@ -28,13 +27,13 @@ type collectorFunc func(chan<- prometheus.Metric, *redfish.Chassis)
 
 type Collector struct {
 	logger         *log.Logger
-	redfish        *gofish.APIClient
+	redfish        *redfish.Client
 	metrics        map[string]*prometheus.Desc
 	scrapeStatus   *prometheus.GaugeVec
 	collectorFuncs []collectorFunc
 }
 
-func New(logger *log.Logger, client *gofish.APIClient) *Collector {
+func New(logger *log.Logger, client *redfish.Client) *Collector {
 	return &Collector{
 		logger:  logger,
 		redfish: client,
