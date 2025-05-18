@@ -63,7 +63,7 @@ or by pointing your favourite browser at this URL.
 
 ## Reloading Configuration
 
-```
+```txt
 PUT /-/reload
 POST /-/reload
 ```
