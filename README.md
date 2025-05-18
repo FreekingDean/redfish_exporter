@@ -31,12 +31,8 @@ There is also a Docker image available. The production build is handled by [gore
 
 ## Running
 
-### Running directly on Linux
-
-The exporter can run directly on Linux as a binary:
-
-```sh
-redfish_exporter --config=redfish_exporter.yml
+```bash
+go run cmd/redfish_exporter/main.go serve --config=config.yaml
 ```
 
 Run `redfish_exporter -h` for more options.
