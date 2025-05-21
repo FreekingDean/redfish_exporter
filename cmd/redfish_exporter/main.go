@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/FreekingDean/redfish_exporter/internal/cmds"
 	"github.com/spf13/cobra"
 )
 
@@ -13,8 +14,8 @@ func main() {
 	}
 
 	rootCmd.AddCommand(
-		newServeCmd(),
-		newVersionCmd(),
+		cmds.NewServeCmd(),
+		cmds.NewVersionCmd(),
 	)
 
 	if err := rootCmd.Execute(); err != nil {

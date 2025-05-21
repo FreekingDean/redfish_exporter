@@ -3,7 +3,6 @@
 [![test-and-lint](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml/badge.svg)](https://github.com/FreekingDean/redfish_exporter/actions/workflows/test-and-lint.yml)
 ![GitHub Tag](https://img.shields.io/github/v/tag/FreekingDean/redfish_exporter)
 
-
 A Prometheus exporter to get metrics from Redfish based hardware servers.
 
 This is HEAVILY based on the original [redfish_exporter](https://github.com/FlxPeters/redfish_exporter), which
@@ -14,20 +13,11 @@ paved the way for what you see here.
 An example configure given as an example:
 
 ```yaml
-hosts:
-  10.36.48.24:
-    username: admin
-    password: pass
-  default:
-    username: admin
-    password: pass
-groups:
-  group1:
-    username: group1_user
-    password: group1_pass
+host:
+  endpoint: http://foobar
+  username: admin
+  password: pass
 ```
-Note that the ```default``` entry is useful as it avoids an error
-condition that is discussed in [this issue][1].
 
 ## Building
 
@@ -41,13 +31,10 @@ There is also a Docker image available. The production build is handled by [gore
 
 ## Running
 
-### Running directly on Linux
-
-The exporter can run directly on Linux as a binary:
-
-```sh
-redfish_exporter --config.file=redfish_exporter.yml
+```bash
+go run cmd/redfish_exporter/main.go serve --config=config.yaml
 ```
+
 Run `redfish_exporter -h` for more options.
 
 ### Running in container
@@ -67,11 +54,12 @@ We can get metrics for a device via the `redfish` endpoint and a `target` parame
 ```sh
 curl http://<redfish_exporter host>:9610/redfish?target=10.10.10.10
 ```
+
 or by pointing your favourite browser at this URL.
 
 ## Reloading Configuration
 
-```
+```txt
 PUT /-/reload
 POST /-/reload
 ```
@@ -137,8 +125,7 @@ We decided to fork the existing exorter for several reasons:
 
 ## Acknowledgement
 
-* https://github.com/stmcginnis/gofish
-* https://github.com/jenningsloy318/redfish_exporter
+- <https://github.com/stmcginnis/gofish>
+- <https://github.com/jenningsloy318/redfish_exporter>
 
-[1]: https://github.com/jenningsloy318/redfish_exporter/issues/7
 [4]: https://github.com/prometheus/prometheus/wiki/Default-port-allocations

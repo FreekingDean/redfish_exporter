@@ -86,7 +86,7 @@ func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
 func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	c.logger.Debug("Collecting chassis metrics")
 
-	chassiss, err := c.redfish.Chassis()
+	chassiss, err := c.redfish.GetService().Chassis()
 	if err != nil {
 		c.logger.Error("Failed to get chassis", log.Error(err))
 		c.scrapeStatus.WithLabelValues("chassis").Set(float64(0))
