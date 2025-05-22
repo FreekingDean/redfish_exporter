@@ -3,6 +3,16 @@ entries:
   redfish-exporter:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-05-22T01:10:24.252149414Z"
+    description: A Helm chart for Kubernetes
+    digest: 2c3b535ea2ddf4ed62cf0401805210a8d958d93024b54b2846a904ff0f614370
+    name: redfish-exporter
+    type: application
+    urls:
+    - https://github.com/FreekingDean/redfish_exporter/releases/download/redfish-exporter-0.1.12/redfish-exporter-0.1.12.tgz
+    version: 0.1.12
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-03-23T20:50:37.569481558Z"
     description: A Helm chart for Kubernetes
     digest: a89bd52a01659238e3d89b52e857df4054e6a66ad6ea88bf67eee6e409232509
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/FreekingDean/redfish_exporter/releases/download/redfish-exporter-0.1.3/redfish-exporter-0.1.3.tgz
     version: 0.1.3
-generated: "2025-03-23T20:50:37.569494602Z"
+generated: "2025-05-22T01:10:24.252171585Z"
