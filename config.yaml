@@ -1,8 +1,8 @@
 # This is the configuration file for the exporter.
 host:
-  endpoint: "192.168.1.120"
-  username: "root"
-  password: "calvin"
+  endpoint: localhost
+  username: root
+  password: admin
 # logLevel can be one of "debug", "info", "warn", "error"
 logLevel: debug
 #metrics:
