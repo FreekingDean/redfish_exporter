@@ -94,6 +94,7 @@ func NewClientConfig(cfg config.Config) *gofish.ClientConfig {
 		Endpoint:   fmt.Sprintf("https://%s", cfg.Host.Endpoint),
 		Username:   cfg.Host.Username,
 		Password:   cfg.Host.Password,
+		BasicAuth:  cfg.Host.BasicAuth,
 		Insecure:   true,
 		HTTPClient: &http.Client{Transport: transport},
 	}

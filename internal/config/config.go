@@ -25,9 +25,10 @@ func (w Web) ListenAddress() string {
 }
 
 type Host struct {
-	Endpoint string `mapstructure:"endpoint"`
-	Username string `mapstructure:"username"`
-	Password string `mapstructure:"password"`
+	Endpoint  string `mapstructure:"endpoint"`
+	Username  string `mapstructure:"username"`
+	Password  string `mapstructure:"password"`
+	BasicAuth bool   `mapstructure:"basicAuth"`
 }
 
 type Metrics struct {
