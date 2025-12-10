@@ -14,7 +14,7 @@ An example configure given as an example:
 
 ```yaml
 host:
-  endpoint: http://foobar
+  endpoint: foo.bar
   username: admin
   password: pass
 ```
